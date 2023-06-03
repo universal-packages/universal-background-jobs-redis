@@ -1,0 +1,67 @@
+{
+  "name": "@universal-packages/background-jobs-redis",
+  "version": "1.0.0",
+  "description": "Redis queue for universal-background-jobs",
+  "author": "David De Anda <david@universal-packages.com> (https://github.com/universal-packages)",
+  "license": "MIT",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": "git://git@github.com/universal-packages/universal-background-jobs-redis.git",
+  "scripts": {
+    "build": "tsc --p tsconfig.dis.json",
+    "test": "jest --watch",
+    "test:full": "jest --coverage --verbose",
+    "test:clear": "jest --clearCache",
+    "format": "prettier --write \"./{src,tests}/**/*.{ts,tsx,js,jsx,json}\""
+  },
+  "dependencies": {
+    "@universal-packages/redis-queue": "^1.0.1",
+    "redis": "^4.3.0"
+  },
+  "peerDependencies": {
+    "@universal-packages/background-jobs": "^1.6.0"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/jest": "^28.1.0",
+    "@types/node": "^17.0.39",
+    "jest": "^28.1.0",
+    "jest-circus": "^28.1.0",
+    "prettier": "^2.8.7",
+    "ts-jest": "^28.0.4",
+    "typescript": "^4.7.3"
+  },
+  "jest": {
+    "testRunner": "jest-circus/runner",
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "(/tests/.*\\.test\\.ts?)$",
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setupTests.ts"
+    ],
+    "watchPathIgnorePatterns": [
+      "<rootDir>/tmp"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 180,
+    "trailingComma": "none",
+    "importOrder": [
+      "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "importOrderParserPlugins": [
+      "typescript",
+      "jsx",
+      "classProperties",
+      "decorators-legacy"
+    ]
+  }
+}
