@@ -16,11 +16,11 @@
     "update-dependents": "umaintenance update-dependents"
   },
   "dependencies": {
-    "@universal-packages/redis-queue": "^1.0.1",
+    "@universal-packages/redis-queue": "^1.0.3",
     "redis": "^4.3.0"
   },
   "peerDependencies": {
-    "@universal-packages/background-jobs": "^1.6.0"
+    "@universal-packages/background-jobs": "^1.7.2"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
