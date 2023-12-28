@@ -16,7 +16,7 @@
     "update-dependents": "umaintenance update-dependents"
   },
   "dependencies": {
-    "@universal-packages/redis-queue": "^1.0.3",
+    "@universal-packages/redis-queue": "^1.0.4",
     "redis": "^4.6.10"
   },
   "peerDependencies": {
