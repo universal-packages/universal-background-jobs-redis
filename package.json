@@ -1,6 +1,6 @@
 {
   "name": "@universal-packages/background-jobs-redis",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Redis queue for universal-background-jobs",
   "author": "David De Anda <david@universal-packages.com> (https://github.com/universal-packages)",
   "license": "MIT",
