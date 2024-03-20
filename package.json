@@ -20,7 +20,7 @@
     "redis": "^4.6.10"
   },
   "peerDependencies": {
-    "@universal-packages/background-jobs": "^1.9.3"
+    "@universal-packages/background-jobs": "^1.9.4"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
