@@ -82,7 +82,7 @@ describe(RedisQueue, (): void => {
 
     await jobs.run()
 
-    await sleep(3500)
+    await sleep(4000)
 
     await jobs.stop()
     await jobs.release()
