@@ -1,4 +1,4 @@
-import { Jobs } from '@universal-packages/background-jobs'
+import { BackgroundJobs } from '@universal-packages/background-jobs'
 import { Measurement, sleep } from '@universal-packages/time-measurer'
 
 import { RedisQueue } from '../src'
@@ -11,20 +11,20 @@ import PriorityBJob from './__fixtures__/priority/PriorityB.job'
 describe(RedisQueue, (): void => {
   it('works with jobs', async (): Promise<void> => {
     const queue = new RedisQueue()
-    const jobs = new Jobs({ jobsLocation: './tests/__fixtures__/jobs', queue, waitTimeIfEmptyRound: 0 })
+    const backgroundJobs = new BackgroundJobs({ jobsLocation: './tests/__fixtures__/jobs', queue, waitTimeIfEmptyRound: 0 })
 
-    await jobs.prepare()
-    await jobs.queue.clear()
+    await backgroundJobs.prepare()
+    await backgroundJobs.queue.clear()
 
     await GoodJob.performLater({ good: true })
     await ExcellentJob.performLater({ excellent: true })
 
-    await jobs.run()
+    await backgroundJobs.run()
 
     await sleep(200)
 
-    await jobs.stop()
-    await jobs.release()
+    await backgroundJobs.stop()
+    await backgroundJobs.release()
 
     expect(GoodJob.performJestFn).toHaveBeenCalledWith({ good: true })
     expect(ExcellentJob.performJestFn).toHaveBeenCalledWith({ excellent: true })
@@ -33,12 +33,12 @@ describe(RedisQueue, (): void => {
   it('works with prioritization', async (): Promise<void> => {
     const performedMock = jest.fn()
     const queue = new RedisQueue()
-    const jobs = new Jobs({ jobsLocation: './tests/__fixtures__/priority', queue, waitTimeIfEmptyRound: 0, queuePriority: { low: 1, high: 3 } })
+    const backgroundJobs = new BackgroundJobs({ jobsLocation: './tests/__fixtures__/priority', queue, waitTimeIfEmptyRound: 0, queuePriority: { low: 1, high: 3 } })
 
-    await jobs.prepare()
-    await jobs.queue.clear()
+    await backgroundJobs.prepare()
+    await backgroundJobs.queue.clear()
 
-    jobs.on('performed', performedMock)
+    backgroundJobs.on('performed', performedMock)
 
     await PriorityAJob.performLater({ A: true })
     await PriorityAJob.performLater({ A: true })
@@ -48,12 +48,12 @@ describe(RedisQueue, (): void => {
     await PriorityBJob.performLater({ B: true })
     await PriorityBJob.performLater({ B: true })
 
-    await jobs.run()
+    await backgroundJobs.run()
 
     await sleep(1000)
 
-    await jobs.stop()
-    await jobs.release()
+    await backgroundJobs.stop()
+    await backgroundJobs.release()
 
     expect(performedMock.mock.calls).toEqual([
       [{ event: 'performed', measurement: expect.any(Measurement), payload: { jobItem: expect.objectContaining({ name: 'PriorityAJob' }) } }],
@@ -70,22 +70,22 @@ describe(RedisQueue, (): void => {
     const retryMock = jest.fn()
     const failedMock = jest.fn()
     const queue = new RedisQueue()
-    const jobs = new Jobs({ jobsLocation: './tests/__fixtures__/failing', queue, waitTimeIfEmptyRound: 0 })
+    const backgroundJobs = new BackgroundJobs({ jobsLocation: './tests/__fixtures__/failing', queue, waitTimeIfEmptyRound: 0 })
 
-    await jobs.prepare()
-    await jobs.queue.clear()
+    await backgroundJobs.prepare()
+    await backgroundJobs.queue.clear()
 
-    jobs.on('retry', retryMock)
-    jobs.on('failed', failedMock)
+    backgroundJobs.on('retry', retryMock)
+    backgroundJobs.on('failed', failedMock)
 
     await FailingJob.performLater()
 
-    await jobs.run()
+    await backgroundJobs.run()
 
     await sleep(4000)
 
-    await jobs.stop()
-    await jobs.release()
+    await backgroundJobs.stop()
+    await backgroundJobs.release()
 
     expect(retryMock.mock.calls).toEqual([
       [
