@@ -19,12 +19,12 @@ npm install @universal-packages/background-jobs
 Just pass this engine to the Jobs and Worker instances to enable it to use redis as the queue system.
 
 ```js
-import { Jobs } from '@universal-packages/universal-background-jobs'
+import { BackgroundJobs } from '@universal-packages/universal-background-jobs'
 import { RedisQueue } from '@universal-packages/universal-background-jobs-redis'
 
-const jobs = new Registry({ queue: 'redis', queueOptions: { host: 'localhost' } })
+const backgroundJobs = new BackgroundJobs({ queue: 'redis', queueOptions: { host: 'localhost' } })
 
-await registry.prepare()
+await backgroundJobs.prepare()
 ```
 
 ### Options
